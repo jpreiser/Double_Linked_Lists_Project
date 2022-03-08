@@ -14,7 +14,7 @@ void printGreeting() {
 
 void printOptions() {
     std::cout << "insert (i), delete (d), length (l), print (p), deleteSub (b), mode (m)," << std::endl;
-    std::cout << "printReverse (r), swapAtl(s), quit (q)" << std::endl;
+    std::cout << "printReverse (r), swapAlt(s), quit (q)" << std::endl;
 }
 
 DoublyLinkedList<int> createIntList(std::string fileName) {
@@ -29,15 +29,9 @@ DoublyLinkedList<int> createIntList(std::string fileName) {
 	while (sFile >> num) {
 		vals.push_back(num);
 	}
-    
-    for (int j = 0; j < vals.size(); j++) {
-        std::cout << vals.at(j) << " ";
-    }
 
-	for(int i = 0; i < vals.size(); i++) {
-        std::cout << "Building" << std::endl;
+	for(long unsigned int i = 0; i < vals.size(); i++) {
         num = vals.at(i);
-        std::cout << "num assigned" << std::endl;
 		created.insertItem(num);
 	}
 	sFile.close();
@@ -56,7 +50,7 @@ DoublyLinkedList<float> createFloatList(std::string fileName) {
 	while (sFile >> num) {
 		vals.push_back(num);
 	}
-	for(const auto &i: vals) {
+	for(long unsigned int i = 0; i < vals.size(); i ++) {
         num = vals.at(i);
 		created.insertItem(num);
 	}
@@ -76,7 +70,7 @@ DoublyLinkedList<std::string> createStringList(std::string fileName) {
 	while (sFile >> num) {
 		vals.push_back(num);
 	}
-	for(int i = 0; i < vals.size(); i++) {
+	for(long unsigned int i = 0; i < vals.size(); i++) {
         num = vals.at(i);
 		created.insertItem(num);
 	}
@@ -89,7 +83,6 @@ void intList(DoublyLinkedList<int> list) {
     char operation;
 
     while(1) {
-        printOptions();
         std::cout << "Enter a command: ";
         std::cin >> operation;
         std::cin.clear();
@@ -99,15 +92,17 @@ void intList(DoublyLinkedList<int> list) {
             std::cout << "Item to insert: ";
             std::cin >> item;
             list.DoublyLinkedList<int>::insertItem(item);
+            list.print();
             break;
         case 'd':
             std::cout << "Enter item to delete: ";
             std::cin >> item;
             list.DoublyLinkedList<int>::deleteItem(item);
+            list.print();
             break;
         case 'l':
             len = list.DoublyLinkedList<int>::lengthIs();
-            std::cout << len << std::endl;
+            std::cout << "The length is: " << len << std::endl;
             break;
         case 'p':
             list.DoublyLinkedList<int>::print();
@@ -172,6 +167,7 @@ int main (int argc, char *argv[]) {
         std::cin >> type;
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        printOptions();
         if (type == "i") {
             intList(iList);
             break;

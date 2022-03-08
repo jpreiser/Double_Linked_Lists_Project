@@ -39,7 +39,7 @@ public:
 
     /* Provided a range from the user, any items that exist within that range will
     be deleted from the list. */
-    void deleteSubsection();
+    void deleteSubsection(T lower, T upper);
 
     /* Returns the statistical mode of the list. */
     void mode();
@@ -50,7 +50,6 @@ public:
 private:
     /* Head of the doubly linked list. */
     NodeType<T>* head;
-    NodeType<T>* tail;
 }; // dll
 
 #endif
