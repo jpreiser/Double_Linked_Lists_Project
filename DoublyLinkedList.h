@@ -4,7 +4,6 @@
 #include <cstdlib>
 #include <iostream>
 
-
 template<class T>
 struct NodeType {
     T data;
