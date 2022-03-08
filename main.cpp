@@ -39,6 +39,7 @@ DoublyLinkedList<int> createIntList(std::string fileName) {
 }
 
 DoublyLinkedList<float> createFloatList(std::string fileName) {
+    std::cout << "creating float list" << std::endl;
     std::ifstream sFile(fileName.c_str());
 	std::vector<float> vals;
 	float num;
@@ -50,7 +51,8 @@ DoublyLinkedList<float> createFloatList(std::string fileName) {
 	while (sFile >> num) {
 		vals.push_back(num);
 	}
-	for(long unsigned int i = 0; i < vals.size(); i ++) {
+
+	for(long unsigned int i = 0; i < vals.size(); i++) {
         num = vals.at(i);
 		created.insertItem(num);
 	}
@@ -107,10 +109,24 @@ void intList(DoublyLinkedList<int> list) {
         case 'p':
             list.DoublyLinkedList<int>::print();
             break;
-        case 'b': 
-            list.DoublyLinkedList<int>::deleteSubsection();
+        case 'b': { 
+            int lowerBound;
+            int upperBound;
+            std::cout << "Enter a lower bound: ";
+            std::cin >> lowerBound;
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Enter upper bound: ";
+            std::cin >> upperBound;
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            list.DoublyLinkedList<int>::deleteSubsection(lowerBound, upperBound);
+            list.DoublyLinkedList<int>::print();
             break;
+        }
         case 'm':
+            list.DoublyLinkedList<int>::print();
+            std::cout << "Mode: ";
             list.DoublyLinkedList<int>::mode();
             break;
         case 'r':
@@ -118,6 +134,7 @@ void intList(DoublyLinkedList<int> list) {
             break;
         case 's':
             list.DoublyLinkedList<int>::swapAlternate();
+            list.DoublyLinkedList<int>::print();
             break;
         case 'q':
             std::cout << "Quitting program..." << std::endl;
@@ -131,8 +148,69 @@ void intList(DoublyLinkedList<int> list) {
 }
 
 void floatList(DoublyLinkedList<float> list) {
-    std::cout << "fList" << std::endl;
+    float item, len;
+    char operation;
 
+    while(1) {
+        std::cout << "Enter a command: ";
+        std::cin >> operation;
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        switch(operation) {
+        case 'i':
+            std::cout << "Item to insert: ";
+            std::cin >> item;
+            list.DoublyLinkedList<float>::insertItem(item);
+            list.print();
+            break;
+        case 'd':
+            std::cout << "Enter item to delete: ";
+            std::cin >> item;
+            list.DoublyLinkedList<float>::deleteItem(item);
+            list.print();
+            break;
+        case 'l':
+            len = list.DoublyLinkedList<float>::lengthIs();
+            std::cout << "The length is: " << len << std::endl;
+            break;
+        case 'p':
+            list.DoublyLinkedList<float>::print();
+            break;
+        case 'b': { 
+            int lowerBound;
+            int upperBound;
+            std::cout << "Enter a lower bound: ";
+            std::cin >> lowerBound;
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Enter upper bound: ";
+            std::cin >> upperBound;
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            list.DoublyLinkedList<float>::deleteSubsection(lowerBound, upperBound);
+            list.DoublyLinkedList<float>::print();
+            break;
+        }
+        case 'm':
+            list.DoublyLinkedList<float>::print();
+            std::cout << "Mode: ";
+            list.DoublyLinkedList<float>::mode();
+            break;
+        case 'r':
+            list.DoublyLinkedList<float>::printReverse();
+            break;
+        case 's':
+            list.DoublyLinkedList<float>::swapAlternate();
+            list.DoublyLinkedList<float>::print();
+            break;
+        case 'q':
+            std::cout << "Quitting program..." << std::endl;
+            return;
+        default:
+            std::cout << "Invalid command, try again!" << std::endl;
+            break;    
+        }
+    }
 }
 
 void stringList(DoublyLinkedList<std::string> list) {

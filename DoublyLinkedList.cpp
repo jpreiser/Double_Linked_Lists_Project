@@ -130,27 +130,65 @@ be deleted from the list. */
 template<class T>
 void DoublyLinkedList<T>::deleteSubsection(T lower, T upper) {
     
+    NodeType<T>* deleter;
+    deleter = head; 
+    while(deleter->next != nullptr) {
+        if(deleter->data >= lower && deleter->data <= upper) {
+           deleteItem(deleter->data); 
+        } else {
+            deleter = deleter->next;
+        }
+    }
+
 }
 
 /* Returns the statistical mode of the list. */
 template<class T>
 void DoublyLinkedList<T>::mode() {
+    NodeType<T>* most = head;
 
+    int total, max = 0;
+    T res;
+
+    while (most!= nullptr) {
+        int count = 1;
+        NodeType<T>* temp = most->next;
+        while (temp!= nullptr) { // check all occurences of currently tracked value
+            if (most->data == temp->data) {
+                count++;
+            }
+            temp = temp->next;
+        }
+
+        //update max if a new max occurs
+        if (count > max) {
+            max = count;
+            res = most->data;
+        }
+        most = most->next;
+        total++;
+    }
+
+    if (max > 1) {
+        std::cout << res << std::endl;
+        return;
+    }
+
+    std::cout << "No mode detected." << std::endl;
 }
 
 /* Swaps pairs of nodes, i.e. 1 and 2, 3 and 4, etc... */
 template<class T>
 void DoublyLinkedList<T>::swapAlternate() {
-    NodeType<T>* oddSwap = head->next;
-    NodeType<T>* evenSwap = head;
-    while (oddSwap != nullptr) {
-        evenSwap->next = oddSwap->next;
-        oddSwap->next = evenSwap;
-        oddSwap->back = evenSwap->back;
-        evenSwap->back = oddSwap;
-        oddSwap = oddSwap->next->next;
-        evenSwap = evenSwap->next->next;
-        break;
+    NodeType<T>* temp = head;
+    T even, odd;
+
+    while (temp!= nullptr && temp->next != nullptr) {
+        even = temp->data;
+        odd  = temp->next->data;
+        temp->data = odd;
+        temp->next->data = even;
+        temp = temp->next->next;
     }
 
 } // swapAlt
