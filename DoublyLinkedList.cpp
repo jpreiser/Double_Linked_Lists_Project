@@ -49,6 +49,8 @@ void DoublyLinkedList<T>::insertItem(T item) {
         loc->next = newNode;
         newNode->back = loc;
     }
+    delete(newNode);
+    delete(loc);
 }
 
 /* Deletes an item from the list if it exists, otherwise prints the list
@@ -85,7 +87,6 @@ void DoublyLinkedList<T>::deleteItem(T item) {
         }
     }
     std::cout << "Item not in list!" << std::endl;
-
 } // delete
 
 /* Returns the length of the list as an instance variable. */
@@ -129,7 +130,6 @@ void DoublyLinkedList<T>::printReverse() {
 be deleted from the list. */
 template<class T>
 void DoublyLinkedList<T>::deleteSubsection(T lower, T upper) {
-    
     NodeType<T>* deleter;
     deleter = head; 
     while(deleter->next != nullptr) {
@@ -139,17 +139,14 @@ void DoublyLinkedList<T>::deleteSubsection(T lower, T upper) {
             deleter = deleter->next;
         }
     }
-
 }
 
 /* Returns the statistical mode of the list. */
 template<class T>
 void DoublyLinkedList<T>::mode() {
     NodeType<T>* most = head;
-
     int total, max = 0;
     T res;
-
     while (most!= nullptr) {
         int count = 1;
         NodeType<T>* temp = most->next;
@@ -159,7 +156,6 @@ void DoublyLinkedList<T>::mode() {
             }
             temp = temp->next;
         }
-
         //update max if a new max occurs
         if (count > max) {
             max = count;
@@ -168,12 +164,11 @@ void DoublyLinkedList<T>::mode() {
         most = most->next;
         total++;
     }
-
     if (max > 1) {
         std::cout << res << std::endl;
         return;
     }
-
+    // Print if no mode is reached and returned.
     std::cout << "No mode detected." << std::endl;
 }
 
@@ -182,7 +177,6 @@ template<class T>
 void DoublyLinkedList<T>::swapAlternate() {
     NodeType<T>* temp = head;
     T even, odd;
-
     while (temp!= nullptr && temp->next != nullptr) {
         even = temp->data;
         odd  = temp->next->data;
@@ -190,7 +184,6 @@ void DoublyLinkedList<T>::swapAlternate() {
         temp->next->data = even;
         temp = temp->next->next;
     }
-
 } // swapAlt
 
 template class DoublyLinkedList<int>;
