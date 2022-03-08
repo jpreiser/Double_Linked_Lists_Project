@@ -39,7 +39,6 @@ DoublyLinkedList<int> createIntList(std::string fileName) {
 }
 
 DoublyLinkedList<float> createFloatList(std::string fileName) {
-    std::cout << "creating float list" << std::endl;
     std::ifstream sFile(fileName.c_str());
 	std::vector<float> vals;
 	float num;
@@ -84,7 +83,7 @@ void intList(DoublyLinkedList<int> list) {
     int item, len;
     char operation;
 
-    while(1) {
+    while(1) { 
         std::cout << "Enter a command: ";
         std::cin >> operation;
         std::cin.clear();
@@ -112,7 +111,7 @@ void intList(DoublyLinkedList<int> list) {
         case 'b': { 
             int lowerBound;
             int upperBound;
-            std::cout << "Enter a lower bound: ";
+            std::cout << "Enter lower bound: ";
             std::cin >> lowerBound;
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -120,7 +119,10 @@ void intList(DoublyLinkedList<int> list) {
             std::cin >> upperBound;
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Original List: ";
+            list.DoublyLinkedList<int>::print();
             list.DoublyLinkedList<int>::deleteSubsection(lowerBound, upperBound);
+            std::cout << "Modified List: ";
             list.DoublyLinkedList<int>::print();
             break;
         }
@@ -133,7 +135,10 @@ void intList(DoublyLinkedList<int> list) {
             list.DoublyLinkedList<int>::printReverse();
             break;
         case 's':
+            std::cout << "Original List: ";
+            list.DoublyLinkedList<int>::print();
             list.DoublyLinkedList<int>::swapAlternate();
+            std::cout << "Swapped List: ";
             list.DoublyLinkedList<int>::print();
             break;
         case 'q':
@@ -179,7 +184,7 @@ void floatList(DoublyLinkedList<float> list) {
         case 'b': { 
             int lowerBound;
             int upperBound;
-            std::cout << "Enter a lower bound: ";
+            std::cout << "Enter lower bound: ";
             std::cin >> lowerBound;
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -187,7 +192,10 @@ void floatList(DoublyLinkedList<float> list) {
             std::cin >> upperBound;
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Original List: ";
+            list.DoublyLinkedList<float>::print();
             list.DoublyLinkedList<float>::deleteSubsection(lowerBound, upperBound);
+            std::cout << "Modified List: ";
             list.DoublyLinkedList<float>::print();
             break;
         }
@@ -200,7 +208,10 @@ void floatList(DoublyLinkedList<float> list) {
             list.DoublyLinkedList<float>::printReverse();
             break;
         case 's':
+            std::cout << "Original List: ";
+            list.DoublyLinkedList<float>::print();
             list.DoublyLinkedList<float>::swapAlternate();
+            std::cout << "Swapped List: ";
             list.DoublyLinkedList<float>::print();
             break;
         case 'q':
@@ -214,7 +225,76 @@ void floatList(DoublyLinkedList<float> list) {
 }
 
 void stringList(DoublyLinkedList<std::string> list) {
-    std::cout << "sList" << std::endl;
+    std::string item; 
+    int len;
+    char operation;
+
+    while(1) {
+        std::cout << "Enter a command: ";
+        std::cin >> operation;
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        switch(operation) {
+        case 'i':
+            std::cout << "Item to insert: ";
+            std::cin >> item;
+            list.DoublyLinkedList<std::string>::insertItem(item);
+            list.print();
+            break;
+        case 'd':
+            std::cout << "Enter item to delete: ";
+            std::cin >> item;
+            list.DoublyLinkedList<std::string>::deleteItem(item);
+            list.print();
+            break;
+        case 'l':
+            len = list.DoublyLinkedList<std::string>::lengthIs();
+            std::cout << "The length is: " << len << std::endl;
+            break;
+        case 'p':
+            list.DoublyLinkedList<std::string>::print();
+            break;
+        case 'b': { 
+            std::string lowerBound;
+            std::string upperBound;
+            std::cout << "Enter lower bound: ";
+            std::cin >> lowerBound;
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Enter upper bound: ";
+            std::cin >> upperBound;
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Original List: ";
+            list.DoublyLinkedList<std::string>::print();
+            list.DoublyLinkedList<std::string>::deleteSubsection(lowerBound, upperBound);
+            std::cout << "Modified List: ";
+            list.DoublyLinkedList<std::string>::print();
+            break;
+        }
+        case 'm':
+            list.DoublyLinkedList<std::string>::print();
+            std::cout << "Mode: ";
+            list.DoublyLinkedList<std::string>::mode();
+            break;
+        case 'r':
+            list.DoublyLinkedList<std::string>::printReverse();
+            break;
+        case 's':
+            std::cout << "Original List: ";
+            list.DoublyLinkedList<std::string>::print();
+            list.DoublyLinkedList<std::string>::swapAlternate();
+            std::cout << "Swapped List: ";
+            list.DoublyLinkedList<std::string>::print();
+            break;
+        case 'q':
+            std::cout << "Quitting program..." << std::endl;
+            return;
+        default:
+            std::cout << "Invalid command, try again!" << std::endl;
+            break;    
+        }
+    }
 
 }
 
@@ -231,12 +311,15 @@ int main (int argc, char *argv[]) {
 
     if (strcmp(argv[1], "int-input.txt") == 0) {
         iList = createIntList("int-input.txt");
-    } else if (strcmp(argv[1], "int_input2.txt") == 0) {
+    } else if (strcmp(argv[1], "int-input2.txt") == 0) {
         iList = createIntList("int-input2.txt");
     } else if (strcmp(argv[1], "float-input.txt") == 0) {
         fList = createFloatList("float-input.txt");
     } else if (strcmp(argv[1], "string-input.txt") == 0) {
         sList = createStringList("string-input.txt");
+    } else {
+        std::cout << "Please enter int-input.txt || int-input2.txt || float-input.txt || string-input.txt"
+        << std::endl;
     }
 
     std::string type;
